@@ -221,6 +221,9 @@ const path = require('path')
         else if (msg === 'help') {
           readline1.close()
           console.clear()
+
+          console.log(`goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance`)
+          console.log(`stopgoto: stops pathfinfing`)
           console.log(`items: list all inventory items in terminal`)
           console.log(`mine: 
           gives you two options : 
@@ -254,7 +257,7 @@ const path = require('path')
             output: process.stdout
           })
           
-          readline18.question(`\n Press any key to continue`, keytocontin => {
+          readline18.question(`\n Press any key to continue..`, keytocontin => {
             readline18.close()
             repeaterer()
           }) 
@@ -633,7 +636,7 @@ const path = require('path')
             output: process.stdout
           })
           
-          readline19.question(`Pos? : `, whatpos => {
+          readline19.question(`Position? : `, whatpos => {
             readline19.close()
             function locategoto () {
               var Vec3 = require('vec3').Vec3;
@@ -641,15 +644,26 @@ const path = require('path')
               const mcData = require('minecraft-data')(bot.version)
         
               bot.pathfinder.setMovements(new Movements(bot, mcData))
-              bot.chat(whatpos)
+              var cmd = whatpos.split(` `)
+              console.log(cmd[1])
+              const x = cmd[0]
+              const y = cmd[1]
+              const z = cmd[2]
 
               const goal111 = (whatpos)
-              bot.pathfinder.setGoal(new goals.GoalBlock(goal111))
+              bot.pathfinder.setGoal(new goals.GoalBlock(x,y,z))
           }
           
           locategoto()
           repeaterer()
           }) 
+        }
+
+        else if (msg === `stopgoto`) {
+          readline1.close()
+          bot.pathfinder.setGoal(null)
+          bot.pathfinder.stop()
+          repeaterer()
         }
     
         else if (msg === `block`) {
