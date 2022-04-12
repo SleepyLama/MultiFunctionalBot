@@ -3,7 +3,24 @@ const path = require('path')
   var antikick = `false`
   function rebirth() {
     // this : || is IMPORTANT
+  
     
+
+// HOSTER IS HOST
+
+// PORTER IS PORT
+    var hoster = 'localhost'
+    var porter = `1075`
+
+
+
+
+
+    var constantgotopos = null
+    var constantgotopos1x = null
+    var constantgotopos1y = null
+    var constantgotopos1z = null
+    var iskillaura = `false`
     var allowedtosetcontrolstate = `true`
     var isallowedtomine = null
     var isactivating = `false`
@@ -13,8 +30,6 @@ const path = require('path')
     var guardPos = null
     var isguarding = null
     var canattack = null
-    var hoster = 'localhost'
-    var porter = `9661`
     let target = null
     
     const armorManager = require('mineflayer-armor-manager')
@@ -63,7 +78,63 @@ const path = require('path')
         output: process.stdout
       })
       
-      readline1.question(`What do you want to do? : `, msg => {
+      readline1.question(`
+      
+      
+      What do you want to do? : 
+
+      You can use following commands:
+
+      killaura: attacks EVERYTHING AND YOUT TOO in a 10 block radius
+
+      goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance
+      
+      stopgoto: stops pathfinfing
+      
+      items: list all inventory items in terminal
+      
+      mine: 
+                gives you two options : 
+      
+                1st one : run (mines the whole chunk the bot is standing in)
+      
+                2nd one : stop (stops chunkmining and rejoins)
+                
+      
+                
+                Antikick: you can set it to true of false if true the bot will rejoin after ~4 seconds on kick
+      
+      
+      protect: follows the player and attacks mobs if they are in a range of 12
+      
+      follow: follows the entered player)
+      
+      attack: runs towards the named target (player) and attacks him until he is dead
+      
+      come: type come and the name of the player to follow cant be out of renderdistance!
+      
+      spam: says or executes a message as often you want
+      
+      kill: kills the named target you will enter
+      
+      drop: asks you what item and drops you a stack of it!
+      
+      guard: guards the nearby area where you said the command and kills entities if there is anyone nearby
+      
+      equip: equip  the item you entered
+      
+      block: use the item in the offhand like a shield
+      
+      unblock: stop using the item in the offhand
+      
+      activate: right clicks the nearest mob
+      
+      gotoblock: goes to the given block perfectly and mines it
+
+
+      SCROLL UP
+      
+      COMMAND : `, msg => {
         if (msg === 'kill') { readline1.close()
           
           const readline2 = require('readline').createInterface({
@@ -119,17 +190,26 @@ const path = require('path')
           }) 
         }
 
-        else if (msg === `chat`) {
-          const readline = require('readline').createInterface({
-            input: process.stdin,
-            output: process.stdout
-          })
-          
-          readline.question(`What do you want to say?`, whatmessage => {
-            console.log(whataction)
-            readline.close()
-          }) 
-        }
+        else if(msg === `killaura`) {
+          console.clear()
+          readline1.close()
+            const readline20 = require('readline').createInterface({
+              input: process.stdin,
+              output: process.stdout
+            })
+            
+            readline20.question(`\n \n It will attack everything in a 10 block radius even you do u want to toggle?\n\n Y MEANS true\n N MEANS FALSE\n\n Y/N? : `, togglequest => {
+              readline20.close()
+              if (togglequest === `Y`) {
+                iskillaura = `true`
+                repeaterer()
+              }
+              else if (togglequest === `N`) {
+                iskillaura = `false`
+                repeaterer()
+              }
+            }) 
+          }
     
         else if (msg === `activate`) {
           readline1.close()
@@ -147,7 +227,7 @@ const path = require('path')
             const target1 = bot.players[msg3].entity        
             if (!target1) return
             else if (target1) {
-              bot.pvp.attackRange = 3.4
+              bot.pvp.attackRange = 3
               bot.pvp.attack(target1, true)
             }
             readline5.close()
@@ -221,7 +301,7 @@ const path = require('path')
         else if (msg === 'help') {
           readline1.close()
           console.clear()
-
+          console.log(`killaura: attacks EVERYTHING AND YOUT TOO in a 10 block radius`)
           console.log(`goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance`)
           console.log(`stopgoto: stops pathfinfing`)
           console.log(`items: list all inventory items in terminal`)
@@ -400,7 +480,7 @@ const path = require('path')
               output: process.stdout
             })
             
-            readline16.question(`What do you wanna do? : \n`, whataction => {
+            readline16.question(`What do you wanna do? : `, whataction => {
               readline1.close()
               readline16.close()
               if (whataction === `run`) {
@@ -652,6 +732,9 @@ const path = require('path')
 
               const goal111 = (whatpos)
               bot.pathfinder.setGoal(new goals.GoalBlock(x,y,z))
+              constantgotopos1x = x
+              constantgotopos1y = y
+              constantgotopos1z = z
           }
           
           locategoto()
@@ -781,7 +864,12 @@ const path = require('path')
     
     
     
-    
+    bot.on(`stoppedAttacking`,()=> {
+        console.log(constantgotopos1x,constantgotopos1y,constantgotopos1z)
+        const mcData = require('minecraft-data')(bot.version)
+        bot.pathfinder.setMovements(new Movements(bot, mcData))
+        bot.pathfinder.setGoal(new goals.GoalBlock(constantgotopos1x,constantgotopos1y,constantgotopos1z))
+    })
     
     
     bot.on('stoppedAttacking', () => {
@@ -937,7 +1025,51 @@ bot.once(`spawn`, () => {
     
     
     
-    
+bot.once(`spawn`,() => {
+  setInterval(() => {
+    if (iskillaura === `true`) {
+      bot.loadPlugin(pvp)
+      if (bot.entity) {
+        if (bot.nearestEntity) {
+          if (bot.nearestEntity((entity) => entity.type === `player`)){
+            if (bot.nearestEntity((entity) => entity.type === `player`).position.distanceTo(bot.entity.position) < 15){
+              console.log(`DETECTED PLAYER`)
+              setTimeout(() => {
+                console.clear()
+              }, 100);
+              bot.pvp.attack(bot.nearestEntity((entity) => entity.type === `player`),false)
+              const itemtoequip = bot.inventory.items().find(item => item.name.includes(`sword`))
+              if (itemtoequip) bot.equip(itemtoequip, 'hand')
+            }
+          }          
+        }
+      }
+    }
+  }, 100);
+
+  setInterval(() => {
+    if (iskillaura === `true`) {
+      bot.loadPlugin(pvp)
+      if (bot.entity) {
+        if (bot.nearestEntity) {
+          if (bot.nearestEntity((entity) => entity.type === `mob`)){
+            if (bot.nearestEntity((entity) => entity.type === `mob`).position.distanceTo(bot.entity.position) < 10){
+              console.log(`DETECTED MOB`)
+              setTimeout(() => {
+                console.clear()
+              }, 100);
+              bot.pvp.attack(bot.nearestEntity((entity) => entity.type === `mob`),true)
+              const itemtoequip = bot.inventory.items().find(item => item.name.includes(`sword`))
+              if (itemtoequip) bot.equip(itemtoequip, 'hand')
+            }
+          }          
+        }
+      }
+    }
+  }, 100);
+})
+
+
     
     
     
