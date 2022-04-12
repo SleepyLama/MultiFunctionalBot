@@ -1,4 +1,16 @@
+
+
 # MultiFunctionalBot
+
+
+
+
+
+THIS IS ONLY DEMO VERSION IF YOU WANT MORE DM ME IN DISCORD SleepyCat#2683 FOR A FAIR PRICE AND I WILL GIVE U THE FULL VERSION
+
+
+
+
 
 YOU MUST USE : visual studio code with javascript
 
