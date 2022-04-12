@@ -17,6 +17,7 @@ YOU MUST USE : visual studio code with javascript
 
 
 //tutorial setup:
+
   // you need code runner
 
   // then go in settings and search for terminal
@@ -31,3 +32,21 @@ YOU MUST USE : visual studio code with javascript
   
   
   //now just press on the bottom right the run button (which should have appeared if not restard visual studio code)
+  
+  
+  
+  //After that in visual studio code when the bot joined the give server it will says what do you want to do?
+  
+  
+  
+  //IF YOU NEED ANY HELP DM ME SleepyCat#2683
+
+
+
+
+
+
+
+
+
+
