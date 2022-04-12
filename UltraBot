@@ -15,7 +15,37 @@ const path = require('path')
 
 
 
+    const bighelptext = `
+    You can use following commands:
 
+    killaura: attacks EVERYTHING AND YOUT TOO in a 10 block radius
+    goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance
+    stopgoto: stops pathfinfing
+    items: list all inventory items in terminal
+    
+    mine: 
+        gives you two options : 
+    
+        1st one : run (mines the whole chunk the bot is standing in)
+    
+        2nd one : stop (stops chunkmining and rejoins)
+                     
+    Antikick: you can set it to true of false if true the bot will rejoin after ~4 seconds on kick
+    protect: follows the player and attacks mobs if they are in a range of 12
+    follow: follows the entered player)
+    attack: runs towards the named target (player) and attacks him until he is dead
+    come: type come and the name of the player to follow cant be out of renderdistance!
+    spam: says or executes a message as often you want
+    kill: kills the named target you will enter
+    drop: asks you what item and drops you a stack of it!
+    guard: guards the nearby area where you said the command and kills entities if there is anyone nearby
+    equip: equip  the item you entered
+    block: use the item in the offhand like a shield
+    unblock: stop using the item in the offhand
+    activate: right clicks the nearest mob
+    gotoblock: goes to the given block perfectly and mines it
+
+    IF YOU DONT ENTER ANY OF THESE COMMANDS THE BOT WILL JUST SAY IT IN CHAT YES COMMANDS WORKS TOO `
     var constantgotopos = null
     var constantgotopos1x = null
     var constantgotopos1y = null
@@ -78,43 +108,8 @@ const path = require('path')
         output: process.stdout
       })
       
-      readline1.question(`
-      
-      
-      What do you want to do? : 
-
-      You can use following commands:
-
-      killaura: attacks EVERYTHING AND YOUT TOO in a 10 block radius
-      goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance
-      stopgoto: stops pathfinfing
-      items: list all inventory items in terminal
-      
-      mine: 
-          gives you two options : 
-      
-          1st one : run (mines the whole chunk the bot is standing in)
-      
-          2nd one : stop (stops chunkmining and rejoins)
-                       
-      Antikick: you can set it to true of false if true the bot will rejoin after ~4 seconds on kick
-      protect: follows the player and attacks mobs if they are in a range of 12
-      follow: follows the entered player)
-      attack: runs towards the named target (player) and attacks him until he is dead
-      come: type come and the name of the player to follow cant be out of renderdistance!
-      spam: says or executes a message as often you want
-      kill: kills the named target you will enter
-      drop: asks you what item and drops you a stack of it!
-      guard: guards the nearby area where you said the command and kills entities if there is anyone nearby
-      equip: equip  the item you entered
-      block: use the item in the offhand like a shield
-      unblock: stop using the item in the offhand
-      activate: right clicks the nearest mob
-      gotoblock: goes to the given block perfectly and mines it
-
-      IF YOU DONT ENTER ANY OF THESE COMMANDS THE BOT WILL JUST SAY IT IN CHAT YES COMMANDS WORKS TOO 
-
-      SCROLL UP
+      readline1.question(` 
+      Type "help" for all commands
       
       COMMAND : `, msg => {
         if (msg === 'kill') { readline1.close()
@@ -281,45 +276,19 @@ const path = require('path')
         }
     
         else if (msg === 'help') {
-          readline1.close()
           console.clear()
-          console.log(`killaura: attacks EVERYTHING AND YOUT TOO in a 10 block radius`)
-          console.log(`goto: u have to enter coords WITHOUT , and he will pathfind to it can be out of renderdistance`)
-          console.log(`stopgoto: stops pathfinfing`)
-          console.log(`items: list all inventory items in terminal`)
-          console.log(`mine: 
-          gives you two options : 
-
-          1st one : run (mines the whole chunk the bot is standing in)
-
-          2nd one : stop (stops chunkmining and rejoins)
-          
-          `)
-
-          console.log(`
-          
-          Antikick: you can set it to true of false if true the bot will rejoin after ~4 seconds on kick
-
-          `)
-          console.log(`protect: follows the player and attacks mobs if they are in a range of 12`)
-          console.log(`follow: follows the entered player`)
-          console.log('attack: ' + 'runs towards the named target (player) and attacks him until he is dead')
-          console.log('come: ' + 'type come and the name of the player to follow cant be out of renderdistance!')
-          console.log('spam: ' + 'says or executes a message as often you want')
-          console.log('kill: ' + 'kills the named target you will enter')
-          console.log('drop: ' + 'asks you what item and drops you a stack of it!')
-          console.log('guard: ' + 'guards the nearby area where you said the command and kills entities if there is anyone nearby')
-          console.log('equip: ' + 'equip  the item you entered')
-          console.log(`block: use the item in the offhand like a shield`)
-          console.log(`unblock: stop using the item in the offhand`)
-          console.log(`activate: right clicks the nearest mob`)
-          console.log(`gotoblock: goes to the given block perfectly and mines it`)
+          readline1.close()
+          console.log(`${bighelptext}`)
+          console.clear()
           const readline18 = require('readline').createInterface({
             input: process.stdin,
             output: process.stdout
           })
           
-          readline18.question(`\n Press any key to continue..`, keytocontin => {
+          readline18.question(`\n 
+          SCROLL UP!!!
+
+          Press any key to continue..`, keytocontin => {
             readline18.close()
             repeaterer()
           }) 
